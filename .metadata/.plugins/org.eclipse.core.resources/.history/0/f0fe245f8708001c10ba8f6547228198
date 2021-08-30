@@ -1,0 +1,13 @@
+package com.ui.BaseClass;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class BaseClass {
+	
+	private void setUp() {
+		
+	 WebDriverManager.chromedriver().setup();	
+		
+	}
+
+}

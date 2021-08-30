@@ -1,0 +1,57 @@
+package com.ui.BaseClass;
+
+import java.util.concurrent.TimeUnit;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
+
+import com.beust.jcommander.Parameter;
+import com.ui.Utilities.ReadConfig;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class BaseClass {
+
+	public static WebDriver driver;
+	public static final Logger logger = LogManager.getLogger("ChannelNewsProject");
+	public static ReadConfig config = new ReadConfig();
+
+	@Parameters("platform")
+	@BeforeMethod
+	public void setUp(String platform) {
+
+		if(platform.equalsIgnoreCase("desktop")){
+
+			WebDriverManager.chromedriver().setup();
+			driver = new ChromeDriver();
+		}
+		
+		else if (platform.equalsIgnoreCase("mobile")) {
+
+		}
+		
+		else if(platform.equalsIgnoreCase("tablet")) {
+
+
+		}
+
+		logger.info("Launching Chrome Browser");
+
+		driver.manage().window().maximize();
+		logger.info("Brower window Maximize");
+
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+	}
+
+	@BeforeMethod(dependsOnMethods = "setUp")
+	public void launchUrl() {
+
+		driver.get(config.getURL());
+
+	}
+
+}

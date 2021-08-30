@@ -1,0 +1,12 @@
+package com.ui.Utilities;
+
+import java.util.Properties;
+
+public class Uitlities {
+
+	Properties prop;
+	
+	
+	
+	
+}

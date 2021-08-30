@@ -1,0 +1,44 @@
+package com.ui.TestCases;
+
+import org.apache.hc.client5.http.impl.nio.MultihomeConnectionInitiator;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import com.ui.BaseClass.BaseClass;
+import com.ui.PageObjects.HeadLinePage;
+import com.ui.PageObjects.HomePage;
+import com.ui.Utilities.ReadConfig;
+import com.ui.Utilities.Utilities;
+
+public class TC_HeadLine extends BaseClass {
+
+	HomePage homePage;
+	HeadLinePage headLinePage;
+	Utilities utility;
+	public static ReadConfig config;
+	String homePageTitle;
+	String headLineTitle;
+	
+	@BeforeMethod
+	public void testSetUp() {
+
+		homePage = new HomePage(driver);
+		headLinePage = new HeadLinePage(driver);
+		config = new ReadConfig();
+		utility = new Utilities(driver);
+		homePageTitle = config.getHomePageTitle();
+		headLineTitle = config.getHeadLineTitle();
+	}
+		
+	@Test(description = "Verify Headline page test")
+	public void verfifyHeadLine() {
+		
+		utility.verifyTitle(homePageTitle);
+		
+		homePage.clickHeadLine();
+					
+		utility.scrollPage();
+		
+	}
+
+}

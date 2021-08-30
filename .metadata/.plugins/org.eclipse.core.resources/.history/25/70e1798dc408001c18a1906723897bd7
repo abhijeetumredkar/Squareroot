@@ -1,0 +1,74 @@
+package com.ui.Utilities;
+
+import javax.swing.text.Element;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
+
+import com.ui.PageObjects.HeadLinePage;
+
+public class Utilities {
+
+	public static WebDriver ldriver;
+	public static final Logger logger = LogManager.getLogger("ChannelNewsProject");
+	public static SoftAssert softassert = new SoftAssert();
+	HeadLinePage headLinePage = new HeadLinePage(ldriver);
+
+	public Utilities(WebDriver rdriver) {
+
+		ldriver = rdriver;
+	}
+
+	public void verifyTitle(String expectedTitle) {
+
+		String actualTitle = ldriver.getTitle();
+		softassert.assertEquals(actualTitle, expectedTitle,"Mismatch is Page Title");
+		softassert.assertAll();
+
+	}
+
+	public void scrollPage() throws InterruptedException{
+
+		long longScrollHeight = (Long) ((JavascriptExecutor) ldriver).executeScript("return Math.max("
+				+ "document.body.scrollHeight, document.documentElement.scrollHeight,"
+				+ "document.body.offsetHeight, document.documentElement.offsetHeight,"
+				+ "document.body.clientHeight, document.documentElement.clientHeight);"
+				);
+		((JavascriptExecutor) ldriver).executeScript("window.scrollTo(0, " + longScrollHeight + ");");
+		((JavascriptExecutor) ldriver).executeScript("window.scrollBy(0,-500)");
+		waitForPageToLoad(ldriver);
+		((JavascriptExecutor) ldriver).executeScript("window.scrollBy(0,500)");
+	}
+
+	public void waitForPageToLoad(WebDriver driver) {
+
+		ExpectedCondition<Boolean> expectation = new ExpectedCondition<Boolean>() {
+			public Boolean apply(WebDriver driver) {
+				return ((JavascriptExecutor) driver).executeScript(
+						"return document.readyState").equals("complete");
+			}
+		};
+		WebDriverWait wait = new WebDriverWait(driver, 20);
+		wait.until(expectation);
+		//		WebDriverWait wait = new WebDriverWait(ldriver, 20);
+		//		element = (WebElement) wait.until(ExpectedConditions.visibilityOfAllElements(element));
+
+	}
+
+	public void clickExpandToReadFullStoryButton() throws InterruptedException {
+
+		scrollPage();
+		//waitForPageToLoad(ldriver);
+		headLinePage.expandToReadFullStoryButton(ldriver.getTitle()).click();
+
+	}
+}

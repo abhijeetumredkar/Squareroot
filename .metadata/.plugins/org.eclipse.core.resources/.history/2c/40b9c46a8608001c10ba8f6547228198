@@ -1,0 +1,10 @@
+package com.ui.BaseClass;
+
+public class BaseClass {
+	
+	private void setUp() {
+		
+		
+	}
+
+}

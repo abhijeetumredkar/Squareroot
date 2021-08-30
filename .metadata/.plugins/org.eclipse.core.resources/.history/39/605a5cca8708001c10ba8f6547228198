@@ -1,0 +1,5 @@
+package com.ui.PageObjects;
+
+public class HomePage {
+
+}

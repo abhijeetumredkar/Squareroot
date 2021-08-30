@@ -1,0 +1,20 @@
+package com.ui.PageObjects;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
+
+public class HomePage {
+
+	WebDriver ldriver;
+	public static final Logger logger = LogManager.getLogger("ChannelNewsProject");
+
+	public HomePage(WebDriver rdriver) {
+
+		ldriver = rdriver;
+		PageFactory.initElements(rdriver, this);
+	}
+
+ 
+}

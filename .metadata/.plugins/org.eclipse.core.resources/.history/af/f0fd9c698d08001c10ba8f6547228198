@@ -1,0 +1,16 @@
+package com.ui.BaseClass;
+
+import org.testng.annotations.BeforeMethod;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+
+public class BaseClass {
+
+	@BeforeMethod
+	private void setUp() {
+
+		WebDriverManager.chromedriver().setup();	
+
+	}
+
+}

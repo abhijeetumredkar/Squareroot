@@ -1,0 +1,29 @@
+package com.ui.PageObjects;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.FindBys;
+import org.openqa.selenium.support.PageFactory;
+
+public class HeadLinePage {
+
+	WebDriver ldriver;
+	public Object expandToReadFullStoryButton;
+	public static final Logger logger = LogManager.getLogger("ChannelNewsProject");
+
+	public HeadLinePage(WebDriver rdriver) {
+
+		ldriver = rdriver;
+		PageFactory.initElements(rdriver, this);
+	}
+	
+	public WebElement expandToReadFullStoryButton() {
+		
+		return ldriver.findElement(By.xpath("(//*[@class='article__read-full-story-button-wrapper']//a[contains(text(),'Expand to read')])[2]"));
+	}
+	
+}
